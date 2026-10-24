@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>CSAT &amp; NPS Calculator - survey scores made clear (offline)</title>
+    <meta
+      name="description"
+      content="Work out CSAT and NPS from survey scores by period, with margin of error and a note on whether a change is real. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>CSAT &amp; NPS Calculator</h1>
+          <p>Turn survey scores into a number you can trust.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card noprint" aria-labelledby="h-in">
+        <h2 id="h-in">1. Scores</h2>
+        <div class="grid">
+          <div>
+            <label for="metric">Measure</label
+            ><select id="metric">
+              <option value="csat">CSAT (scores 1 to 5)</option>
+              <option value="nps">NPS (scores 0 to 10)</option>
+            </select>
+          </div>
+          <div><label for="target">Target (optional)</label><input type="number" id="target" step="any" /></div>
+        </div>
+        <label for="text">One period per line: period | scores (use 9x40 for forty 9s)</label>
+        <textarea id="text" rows="7" placeholder="Oct 2026 | 5x120, 4x90, 3x40, 2x20, 1x10"></textarea>
+        <div class="row"><button id="demo" type="button">Load sample scores</button></div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-out">
+        <h2 id="h-out">2. Results</h2>
+        <div class="stats" id="stats"></div>
+        <p id="narrative"></p>
+        <div class="table-wrap"><table id="t-res"></table></div>
+        <p class="hint">
+          "+/-" is the 95% margin of error: the true score is probably within that range. A change is called clear only when it is bigger
+          than the combined margins of both periods. Periods with fewer than 30 responses are marked small.
+        </p>
+        <div class="row noprint">
+          <button id="csv" type="button">Download CSV</button>
+          <button id="print" type="button">Print</button>
+          <button id="save" type="button">Save (.json)</button>
+          <label class="file">Open saved sheet<input type="file" id="open-file" accept=".json,application/json" /></label>
+        </div>
+        <p class="hint noprint">Nothing is stored in the browser. Save the sheet to a file and open it next time.</p>
+        <p class="status" id="out-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed</footer>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

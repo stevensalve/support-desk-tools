@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Shift Handover Notes - hand over cleanly (offline)</title>
+    <meta
+      name="description"
+      content="Write a clear shift handover with open cases, owners and reminders, then copy it as text or download a PDF. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Shift Handover Notes</h1>
+          <p>Say what is open, who owns it and what is due, so the next shift can start at once.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-a">
+        <h2 id="h-a">1. The shift</h2>
+        <div class="grid">
+          <div><label for="team">Team or queue</label><input type="text" id="team" maxlength="60" /></div>
+          <div>
+            <label for="shift">Shift ending</label
+            ><select id="shift"></select>
+          </div>
+          <div><label for="date">Date</label><input type="date" id="date" /></div>
+          <div><label for="outgoing">Handing over (you)</label><input type="text" id="outgoing" maxlength="60" /></div>
+          <div><label for="incoming">Taking over</label><input type="text" id="incoming" maxlength="60" /></div>
+          <div><label for="open">Open tickets</label><input type="number" id="open" min="0" max="100000" /></div>
+          <div><label for="waiting">Waiting on customer</label><input type="number" id="waiting" min="0" max="100000" /></div>
+          <div><label for="urgent">Urgent</label><input type="number" id="urgent" min="0" max="100000" /></div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="h-b">
+        <h2 id="h-b">2. What to hand over</h2>
+        <label for="cases">Cases to pick up, one per line: reference | customer | what is needed next | owner | due</label>
+        <textarea id="cases" rows="6"></textarea>
+        <ul id="case-errors"></ul>
+        <div class="cols2">
+          <div><label for="issues">Known issues (one per line)</label><textarea id="issues" rows="4"></textarea></div>
+          <div><label for="watch">Keep an eye on (one per line)</label><textarea id="watch" rows="4"></textarea></div>
+          <div><label for="reminders">Reminders (one per line)</label><textarea id="reminders" rows="4"></textarea></div>
+          <div><label for="other">Anything else (one per line)</label><textarea id="other" rows="4"></textarea></div>
+        </div>
+        <div class="row">
+          <button id="demo" type="button">Load sample handover</button><button id="clear" type="button">Start a new handover</button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="h-c">
+        <h2 id="h-c">3. Check and share</h2>
+        <ul id="problems"></ul>
+        <ul class="tips" id="tips"></ul>
+        <div class="row">
+          <button class="primary" id="copy" type="button">Copy as text</button>
+          <button id="pdf" type="button">Download PDF</button>
+          <button id="save" type="button">Save (.json)</button>
+          <label class="file">Open saved handover<input type="file" id="open-file" accept=".json,application/json" /></label>
+        </div>
+        <p class="status" id="out-status" role="status"></p>
+        <h3>Preview</h3>
+        <pre class="report" id="preview"></pre>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed - <a href="vendor/README.md">pdf-lib</a></footer>
+    </main>
+    <script src="vendor/pdf-lib.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Refund &amp; Credit Calculator - prorated and partial refunds in INR (offline)</title>
+    <meta
+      name="description"
+      content="Work out prorated subscription refunds, partial order refunds with shared discounts and goodwill credits in rupees, with a note to paste to the customer. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Refund &amp; Credit Calculator</h1>
+          <p>The right amount, explained in plain words.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-pro">
+        <h2 id="h-pro">1. Unused subscription or service period</h2>
+        <div class="grid">
+          <div><label for="p-price">Price paid, including GST (Rs.)</label><input type="text" id="p-price" inputmode="decimal" /></div>
+          <div>
+            <label for="p-gst">GST rate (%)</label
+            ><select id="p-gst"></select>
+          </div>
+          <div><label for="p-start">Period starts</label><input type="date" id="p-start" /></div>
+          <div><label for="p-end">Period ends</label><input type="date" id="p-end" /></div>
+          <div><label for="p-cancel">Cancelled on</label><input type="date" id="p-cancel" /></div>
+          <div>
+            <label for="p-cool">Cooling-off days (full refund)</label><input type="number" id="p-cool" min="0" max="90" value="0" />
+          </div>
+          <div><label for="p-fixed">Fixed cancellation fee (Rs.)</label><input type="text" id="p-fixed" inputmode="decimal" /></div>
+          <div>
+            <label for="p-pct">Fee as % of the refund</label><input type="number" id="p-pct" min="0" max="100" step="any" value="0" />
+          </div>
+          <div>
+            <label class="inline"><input type="checkbox" id="p-day" checked /> The cancellation day counts as used</label>
+          </div>
+        </div>
+        <p class="status" id="p-status" role="status"></p>
+        <table class="totals" id="p-out"></table>
+        <pre class="report" id="p-note"></pre>
+        <div class="row"><button id="p-copy" type="button">Copy note for the customer</button></div>
+      </section>
+
+      <section class="card" aria-labelledby="h-ret">
+        <h2 id="h-ret">2. Returned items from an order</h2>
+        <label for="r-lines">One item per line: name | unit price incl. GST | quantity | returned | GST %</label>
+        <textarea id="r-lines" rows="5" placeholder="Phone case | 499 | 2 | 1 | 18"></textarea>
+        <div class="grid">
+          <div><label for="r-disc">Order discount (coupon), Rs.</label><input type="text" id="r-disc" inputmode="decimal" /></div>
+          <div><label for="r-ship">Shipping paid, Rs.</label><input type="text" id="r-ship" inputmode="decimal" /></div>
+          <div>
+            <label for="r-pct">Restocking fee (% of items)</label><input type="number" id="r-pct" min="0" max="100" step="any" value="0" />
+          </div>
+          <div><label for="r-fixed">Fixed restocking fee, Rs.</label><input type="text" id="r-fixed" inputmode="decimal" /></div>
+          <div>
+            <label class="inline"><input type="checkbox" id="r-refship" /> Refund shipping if the whole order is returned</label>
+          </div>
+        </div>
+        <p class="status" id="r-status" role="status"></p>
+        <div class="table-wrap"><table id="r-table"></table></div>
+        <table class="totals" id="r-out"></table>
+        <pre class="report" id="r-note"></pre>
+        <div class="row">
+          <button id="r-copy" type="button">Copy note for the customer</button><button id="r-csv" type="button">Download CSV</button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="h-gw">
+        <h2 id="h-gw">3. Goodwill credit</h2>
+        <div class="grid">
+          <div><label for="g-value">Order value (Rs.)</label><input type="text" id="g-value" inputmode="decimal" /></div>
+          <div>
+            <label for="g-mode">Credit as</label
+            ><select id="g-mode">
+              <option value="pct">Percentage of the order</option>
+              <option value="fixed">Fixed amount</option>
+            </select>
+          </div>
+          <div><label for="g-pct">Percentage</label><input type="number" id="g-pct" min="0" max="100" step="any" value="10" /></div>
+          <div><label for="g-fixed">Fixed amount (Rs.)</label><input type="text" id="g-fixed" inputmode="decimal" /></div>
+          <div><label for="g-cap">Cap (Rs., optional)</label><input type="text" id="g-cap" inputmode="decimal" /></div>
+        </div>
+        <p class="status" id="g-status" role="status"></p>
+        <table class="totals" id="g-out"></table>
+        <pre class="report" id="g-note"></pre>
+        <div class="row">
+          <button id="g-copy" type="button">Copy note for the customer</button
+          ><button id="demo" type="button">Fill all with sample figures</button>
+        </div>
+        <p class="hint">
+          Check your own refund and tax policy before you pay out. GST on refunds normally needs a credit note from your billing system;
+          this tool only works out the amounts.
+        </p>
+        <p class="status" id="out-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed</footer>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Backlog &amp; Response-Time Report - from a ticket export (offline)</title>
+    <meta
+      name="description"
+      content="Drop in a ticket export from Excel or CSV and see backlog age, response and resolution times, daily trend and breakdowns. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Backlog &amp; Response-Time Report</h1>
+          <p>From a raw ticket export to a weekly report in one drop.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card noprint" aria-labelledby="h-in">
+        <h2 id="h-in">1. Load your tickets</h2>
+        <label class="dropzone" id="drop"
+          >Drop an Excel or CSV ticket export here, or click to choose<input type="file" id="file" accept=".xlsx,.xls,.csv,.tsv"
+        /></label>
+        <p class="hint">
+          Columns it understands: Ticket ID, Created, First Response, Resolved (or Closed), Status, Priority, Agent, Channel, Category. Only
+          Created is required. Times are elapsed hours, not business hours.
+        </p>
+        <div class="grid">
+          <div><label for="asof">Report as of</label><input type="datetime-local" id="asof" /></div>
+          <div><label for="days">Trend covers (days)</label><input type="number" id="days" min="1" max="90" value="14" /></div>
+        </div>
+        <div class="row"><button id="demo" type="button">Try sample tickets</button></div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-out">
+        <h2 id="h-out">2. The report</h2>
+        <div class="stats" id="stats"></div>
+        <p id="narrative"></p>
+        <h3>Open backlog by age</h3>
+        <div class="table-wrap"><table id="t-age"></table></div>
+        <h3>Oldest open tickets</h3>
+        <div class="table-wrap"><table id="t-old"></table></div>
+        <h3>Day by day</h3>
+        <div class="table-wrap"><table id="t-day"></table></div>
+        <h3>By agent</h3>
+        <div class="table-wrap"><table id="t-agent"></table></div>
+        <h3>By priority</h3>
+        <div class="table-wrap"><table id="t-prio"></table></div>
+        <h3>By channel</h3>
+        <div class="table-wrap"><table id="t-chan"></table></div>
+        <h3>By category</h3>
+        <div class="table-wrap"><table id="t-cat"></table></div>
+        <div class="row noprint"><button id="csv" type="button">Download CSV</button><button id="print" type="button">Print</button></div>
+        <p class="status" id="out-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed - <a href="vendor/README.md">SheetJS</a></footer>
+    </main>
+    <script src="vendor/xlsx.full.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

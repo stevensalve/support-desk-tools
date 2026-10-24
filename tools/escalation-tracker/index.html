@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Escalation Tracker - keep escalated cases moving (offline)</title>
+    <meta
+      name="description"
+      content="Track escalated customer cases by level and owner, with a next-update date that never goes quiet. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Escalation Tracker</h1>
+          <p>Every escalated case gets an owner and a next-update date.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-sum">
+        <h2 id="h-sum">Where things stand</h2>
+        <div class="stats" id="stats"></div>
+        <p id="breakdown"></p>
+      </section>
+
+      <section class="card noprint" aria-labelledby="h-new">
+        <h2 id="h-new">Log an escalation</h2>
+        <div class="grid">
+          <div><label for="n-title">What is the problem</label><input type="text" id="n-title" maxlength="120" /></div>
+          <div><label for="n-cust">Customer</label><input type="text" id="n-cust" maxlength="60" /></div>
+          <div>
+            <label for="n-reason">Reason</label
+            ><select id="n-reason"></select>
+          </div>
+          <div>
+            <label for="n-level">Level</label
+            ><select id="n-level"></select>
+          </div>
+          <div><label for="n-owner">Owner</label><input type="text" id="n-owner" maxlength="60" /></div>
+          <div><label for="n-date">Raised on</label><input type="date" id="n-date" /></div>
+          <div><label for="n-note">First note</label><input type="text" id="n-note" maxlength="300" /></div>
+        </div>
+        <div class="row">
+          <button class="primary" id="add" type="button">Add escalation</button><button id="demo" type="button">Load sample data</button>
+        </div>
+        <details>
+          <summary>Update interval by level (days)</summary>
+          <div class="grid" id="cadence"></div>
+          <p class="hint">After each update the next update is due this many days later. Changing it affects new updates only.</p>
+        </details>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-list">
+        <h2 id="h-list">The list</h2>
+        <div class="grid noprint">
+          <div><label for="today">Today</label><input type="date" id="today" /></div>
+          <div><label for="f-text">Search</label><input type="search" id="f-text" /></div>
+          <div>
+            <label for="f-level">Level</label
+            ><select id="f-level"></select>
+          </div>
+          <div>
+            <label class="inline"><input type="checkbox" id="f-open" checked /> Open only</label>
+          </div>
+          <div>
+            <label class="inline"><input type="checkbox" id="f-over" /> Overdue updates only</label>
+          </div>
+        </div>
+        <div class="table-wrap"><table id="t-log"></table></div>
+        <p class="hint" id="empty" hidden>No escalations match.</p>
+        <h3>Chase an owner</h3>
+        <div class="grid noprint">
+          <div>
+            <label for="r-owner">Owner</label
+            ><select id="r-owner"></select>
+          </div>
+        </div>
+        <pre class="report" id="msg"></pre>
+        <div class="row noprint">
+          <button id="copy" type="button">Copy message</button>
+          <button id="csv" type="button">Download CSV</button>
+          <button id="print" type="button">Print</button>
+          <button id="save" type="button">Save (.json)</button>
+          <label class="file">Open saved tracker<input type="file" id="open-file" accept=".json,application/json" /></label>
+        </div>
+        <p class="hint noprint">
+          Nothing is stored in the browser. Save the tracker to a file and open it next time. It contains customer names: protect the file.
+        </p>
+        <p class="status" id="out-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed</footer>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

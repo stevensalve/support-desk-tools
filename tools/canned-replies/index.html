@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Canned Reply Library - fill in and copy replies (offline)</title>
+    <meta
+      name="description"
+      content="Search ready-made support replies, fill in the placeholders and copy. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Canned Reply Library</h1>
+          <p>Find the right reply, fill in the blanks, copy.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-use">
+        <h2 id="h-use">1. Use a reply</h2>
+        <div class="split">
+          <div>
+            <label for="q">Search</label><input type="search" id="q" placeholder="refund, delay, password..." />
+            <label for="cat">Category</label
+            ><select id="cat"></select>
+            <ul class="picker" id="list"></ul>
+            <p class="hint" id="count"></p>
+          </div>
+          <div>
+            <h3 id="rtitle">Pick a reply</h3>
+            <div class="grid" id="fields"></div>
+            <pre class="report" id="preview"></pre>
+            <p class="hint" id="meta"></p>
+            <div class="row"><button class="primary" id="copy" type="button">Copy reply</button></div>
+            <p class="status" id="use-status" role="status"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card noprint" aria-labelledby="h-edit">
+        <h2 id="h-edit">2. Add or edit replies</h2>
+        <div class="grid">
+          <div><label for="e-title">Title</label><input type="text" id="e-title" maxlength="80" /></div>
+          <div>
+            <label for="e-cat">Category</label><input type="text" id="e-cat" maxlength="40" list="cats" /><datalist id="cats"></datalist>
+          </div>
+          <div><label for="e-tags">Tags (comma separated)</label><input type="text" id="e-tags" /></div>
+        </div>
+        <label for="e-body">Reply text. Use {name}, {order_id} and so on for blanks.</label>
+        <textarea id="e-body" rows="5" maxlength="4000"></textarea>
+        <p class="hint" id="e-sms"></p>
+        <div class="row">
+          <button class="primary" id="e-add" type="button">Add as new</button>
+          <button id="e-save" type="button">Save changes to selected</button>
+          <button id="e-del" type="button">Delete selected</button>
+        </div>
+        <p class="status" id="edit-status" role="status"></p>
+      </section>
+
+      <section class="card noprint" aria-labelledby="h-file">
+        <h2 id="h-file">3. Save, share, import</h2>
+        <div class="row">
+          <button id="save" type="button">Save library (.json)</button>
+          <label class="file">Open saved library<input type="file" id="open-file" accept=".json,application/json" /></label>
+          <button id="csv" type="button">Export CSV</button>
+          <label class="file">Import CSV<input type="file" id="import-file" accept=".csv,text/csv" /></label>
+        </div>
+        <p class="hint">
+          Nothing is stored in the browser. Save the library to a file (and share it with your team) and open it next time. CSV import needs
+          the columns Title and Reply; Category and Tags are optional.
+        </p>
+        <p class="status" id="file-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed</footer>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

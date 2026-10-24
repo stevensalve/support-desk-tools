@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Customer Follow-up Planner - keep every promise (offline)</title>
+    <meta
+      name="description"
+      content="Track call-backs and updates you promised customers, see what is due or overdue, and add reminders to your calendar. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Customer Follow-up Planner</h1>
+          <p>Every "I will call you back" gets a date, a time and an owner.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-sum">
+        <h2 id="h-sum">Where things stand</h2>
+        <div class="stats" id="stats"></div>
+        <p id="kept"></p>
+      </section>
+
+      <section class="card noprint" aria-labelledby="h-new">
+        <h2 id="h-new">Add a promise</h2>
+        <div class="grid">
+          <div><label for="n-cust">Customer</label><input type="text" id="n-cust" maxlength="80" /></div>
+          <div><label for="n-ticket">Ticket (optional)</label><input type="text" id="n-ticket" maxlength="30" /></div>
+          <div>
+            <label for="n-channel">How</label
+            ><select id="n-channel"></select>
+          </div>
+          <div><label for="n-due">Due date</label><input type="date" id="n-due" /></div>
+          <div><label for="n-time">Time (optional)</label><input type="time" id="n-time" /></div>
+          <div><label for="n-owner">Owner</label><input type="text" id="n-owner" maxlength="40" /></div>
+        </div>
+        <label for="n-what">What did you promise</label>
+        <input type="text" id="n-what" maxlength="300" />
+        <div class="row">
+          <button class="primary" id="add" type="button">Add follow-up</button><button id="demo" type="button">Load sample data</button>
+        </div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-list">
+        <h2 id="h-list">The list</h2>
+        <div class="grid noprint">
+          <div><label for="today">Today</label><input type="date" id="today" /></div>
+          <div><label for="now">Time now</label><input type="time" id="now" /></div>
+          <div>
+            <label for="f-state">Show</label
+            ><select id="f-state"></select>
+          </div>
+          <div>
+            <label for="f-owner">Owner</label
+            ><select id="f-owner"></select>
+          </div>
+          <div><label for="f-text">Search</label><input type="search" id="f-text" /></div>
+        </div>
+        <div class="table-wrap"><table id="t-log"></table></div>
+        <p class="hint" id="empty" hidden>No follow-ups match.</p>
+        <h3>Today's plan</h3>
+        <pre class="report" id="plan"></pre>
+        <div class="row noprint">
+          <button id="copy" type="button">Copy plan</button>
+          <button id="ics" type="button">Calendar reminders (.ics)</button>
+          <button id="csv" type="button">Download CSV</button>
+          <button id="print" type="button">Print</button>
+          <button id="save" type="button">Save (.json)</button>
+          <label class="file">Open saved list<input type="file" id="open-file" accept=".json,application/json" /></label>
+        </div>
+        <p class="hint noprint">
+          Nothing is stored in the browser. Save the list to a file and open it next time. It contains customer names: protect the file.
+        </p>
+        <p class="status" id="out-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed</footer>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

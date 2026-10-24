@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Call &amp; Chat Notes - clean ticket notes in a minute (offline)</title>
+    <meta
+      name="description"
+      content="Capture structured call and chat notes, hide card numbers and OTPs, and copy a clean summary into the ticket. Runs in your browser; nothing is uploaded."
+    />
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <main class="container wide">
+      <header class="site">
+        <div>
+          <h1>Call &amp; Chat Notes</h1>
+          <p>Structured notes in, a clean ticket summary out.</p>
+        </div>
+        <span class="badge">Works offline - nothing leaves this device</span>
+      </header>
+
+      <section class="card" aria-labelledby="h-a">
+        <h2 id="h-a">1. The contact</h2>
+        <div class="grid">
+          <div><label for="customer">Customer</label><input type="text" id="customer" maxlength="80" /></div>
+          <div><label for="contact">Phone or email</label><input type="text" id="contact" maxlength="80" /></div>
+          <div>
+            <label for="channel">Channel</label
+            ><select id="channel"></select>
+          </div>
+          <div><label for="agent">Handled by</label><input type="text" id="agent" maxlength="80" /></div>
+          <div><label for="ticket">Ticket</label><input type="text" id="ticket" maxlength="80" /></div>
+          <div><label for="started">Started</label><input type="datetime-local" id="started" /></div>
+          <div><label for="minutes">Duration (minutes)</label><input type="number" id="minutes" min="0" max="600" value="0" /></div>
+          <div>
+            <label for="reason">Reason</label
+            ><select id="reason"></select>
+          </div>
+          <div>
+            <label for="mood">Customer mood</label
+            ><select id="mood"></select>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="h-b">
+        <h2 id="h-b">2. What happened</h2>
+        <label for="issue">The issue, in the customer's words</label>
+        <textarea id="issue" rows="4" maxlength="4000"></textarea>
+        <label for="actions">What you did</label>
+        <textarea id="actions" rows="4" maxlength="4000"></textarea>
+        <div class="grid">
+          <div>
+            <label for="outcome">Outcome</label
+            ><select id="outcome"></select>
+          </div>
+        </div>
+        <label for="followups">Next steps, one per line: what | due date</label>
+        <textarea id="followups" rows="3" placeholder="Call the customer back | 26/10/2026"></textarea>
+        <div class="row">
+          <button id="demo" type="button">Load sample note</button><button id="clear" type="button">Start a new note</button>
+        </div>
+        <p class="status" id="status" role="status"></p>
+      </section>
+
+      <section class="card" aria-labelledby="h-c">
+        <h2 id="h-c">3. Summary for the ticket</h2>
+        <div class="warnbox" id="sens" hidden role="alert"></div>
+        <ul id="problems"></ul>
+        <label class="inline"
+          ><input type="checkbox" id="mask" checked /> Hide card numbers, Aadhaar-style numbers, PAN and OTP/CVV/PIN values</label
+        >
+        <pre class="report" id="preview"></pre>
+        <div class="row">
+          <button class="primary" id="copy" type="button">Copy summary</button>
+          <button id="save" type="button">Save note (.json)</button>
+          <label class="file">Open saved note<input type="file" id="open-file" accept=".json,application/json" /></label>
+        </div>
+        <p class="hint">
+          Nothing is stored in the browser. The check for sensitive numbers is a safety net, not a guarantee: never write full card numbers,
+          OTPs or passwords in notes.
+        </p>
+        <p class="status" id="out-status" role="status"></p>
+      </section>
+
+      <footer class="site"><a href="../../index.html">All tools</a> - MIT licensed</footer>
+    </main>
+    <script src="js/common.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
